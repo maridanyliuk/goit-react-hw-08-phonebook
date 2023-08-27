@@ -1,9 +1,15 @@
 import { FormControl, FormLabel, Icon, Input, InputGroup, InputLeftElement,
 } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from 'redux/contacts/filterSlice';
+import { selectStatusFilter } from 'redux/contacts/contactsSelectors';
 import { FiUser } from 'react-icons/fi';
 
-export const Filter = ({ filter, onChangeInput }) => {
+export const Filter = () => {
+    const dispatch = useDispatch();
+  const filter = useSelector(selectStatusFilter);
+
+  const onChangeInput = e => dispatch(setFilter(e.target.value));
   return (
     <FormControl>
       <FormLabel>Find contacts by name</FormLabel>
@@ -24,7 +30,4 @@ export const Filter = ({ filter, onChangeInput }) => {
   );
 };
 
-Filter.propTypes = {
-  filter: PropTypes.string,
-  onChangeInput: PropTypes.func.isRequired,
-};
+
